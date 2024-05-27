@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Role;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class IndexController extends Controller
 {
@@ -19,12 +20,5 @@ class IndexController extends Controller
     {
         // $request->user()
         return view('admin.index');
-    }
-
-    public function roles()
-    {
-        $roles = Role::get();
-
-        return view('admin.roles', compact('roles'));
     }
 }

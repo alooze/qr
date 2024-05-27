@@ -20,7 +20,6 @@ Route::group([
 
     Route::controller(App\Http\Controllers\IndexController::class)->group(function() {
         Route::get('/', 'index')->name('i.index');
-        Route::get('/roles', 'roles')->name('i.roles');
     });
 
     // Users management
@@ -30,6 +29,17 @@ Route::group([
         Route::post('/save/{id?}', 'save')->name('u.save');
         Route::get('/update/{id}', 'update')->name('u.update');
         Route::post('/delete/{id}', 'delete')->name('u.delete');
+    });
+
+    Route::prefix('r')->controller(App\Http\Controllers\RolesController::class)->group(function() {
+        Route::get('/', 'index')->name('r.index');
+        Route::post('/add', 'addRole')->name('r.add');
+        Route::post('/delete', 'DelRole')->name('r.delete');
+    });
+
+    Route::prefix('p')->controller(App\Http\Controllers\ProfileController::class)->group(function() {
+        Route::get('/', 'index')->name('p.index');
+        Route::post('/save', 'save')->name('p.save');
     });
 
     // Event management
