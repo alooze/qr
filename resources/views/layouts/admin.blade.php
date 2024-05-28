@@ -21,6 +21,13 @@
         <div class="columns">
             @include('layouts.leftnav')
             <div class="column is-9">
+                @if (session('status'))
+                    <div class="notification is-success">
+                        <button class="delete"></button>
+                        {{ session('status') }}
+                    </div>
+                @endif
+                
                 @yield('crumbs')
                 <!-- <nav class="breadcrumb" aria-label="breadcrumbs">
                     <ul>

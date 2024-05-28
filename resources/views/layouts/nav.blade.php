@@ -42,9 +42,12 @@
                             </a>
 
                             <hr class="navbar-divider">
-                            <a class="navbar-item">
+                            <a class="navbar-item" href="javascript:;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Выход
                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     @else
                         <a href="{{ route('login') }}" class="navbar-item">

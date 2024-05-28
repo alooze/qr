@@ -75,7 +75,7 @@ class PermissionsStartSeeder extends Seeder
             'name' => 'Root',
             'email' => 'admin@admin.com',
         ]);
-        $admin->assignRole('Root');
+        $admin->assignRole($role99);
 
         // create a Admin user
         $user0 = \App\Models\User::factory()->create([

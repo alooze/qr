@@ -23,18 +23,22 @@ Route::group([
     });
 
     // Users management
-    Route::prefix('u')->controller(App\Http\Controllers\UserController::class)->group(function() {
+    Route::prefix('u')
+        ->middleware(['role:Root|Admin'])
+        ->controller(App\Http\Controllers\UserController::class)
+        ->group(function() {
         Route::get('/', 'index')->name('u.index');
         Route::get('/add', 'add')->name('u.add');
-        Route::post('/save/{id?}', 'save')->name('u.save');
-        Route::get('/update/{id}', 'update')->name('u.update');
-        Route::post('/delete/{id}', 'delete')->name('u.delete');
+        Route::post('/save', 'save')->name('u.save');
+        Route::get('/edit/{id}', 'edit')->name('u.edit');
+        Route::post('/update/{id}', 'update')->name('u.update');
+        Route::get('/delete/{id}', 'delete')->name('u.delete');
     });
 
     Route::prefix('r')->controller(App\Http\Controllers\RolesController::class)->group(function() {
         Route::get('/', 'index')->name('r.index');
-        Route::post('/add', 'addRole')->name('r.add');
-        Route::post('/delete', 'DelRole')->name('r.delete');
+        Route::get('/{id}', 'edit')->name('r.edit');
+        Route::post('/save/{id}', 'save')->name('r.save');
     });
 
     Route::prefix('p')->controller(App\Http\Controllers\ProfileController::class)->group(function() {

@@ -41,4 +41,42 @@ class RolesController extends Controller
 
         // return view('admin.roles', compact('roles'));
     }
+
+    public function edit(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->hasRole('Root') && !auth()->user()->hasRole('Root')) {
+            abort('403');
+        }
+
+        if ($user->hasRole('Admin') && !auth()->user()->can('make admin')) {
+            abort('403');
+        }
+
+        $roles = Role::all();
+        return view('users.role', compact('user', 'roles'));
+    }
+
+    public function save(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        // dd($request->all());
+        
+        $roles = Role::all();
+
+        foreach ($roles as $r) {
+            $user->removeRole($r);
+        }
+
+        if (is_array($request->roles)) {
+            foreach ($request->roles as $roleName) {
+                $r = Role::where('name', $roleName)->first();
+                if ($r) {
+                    $user->assignRole($r);
+                }
+            }
+        }
+        return redirect()->route('a.u.index')->with('status', 'Роли обновлены');
+    }
 }

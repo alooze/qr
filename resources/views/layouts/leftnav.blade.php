@@ -5,8 +5,7 @@
         </p>
         <ul class="menu-list">
             <li><a class="{{ request()->routeIs('a.i.index') ? 'is-active' : '' }}" href="{{ route('a.i.index') }}">Панель</a></li>
-            <!-- <li><a>Customers</a></li>
-            <li><a>Other</a></li> -->
+            <li><a class="{{ request()->routeIs('a.p.index') ? 'is-active' : '' }}" href="{{ route('a.p.index') }}">Профиль</a></li>
         </ul>
 
         <p class="menu-label">
