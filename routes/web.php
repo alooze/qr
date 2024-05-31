@@ -35,10 +35,15 @@ Route::group([
         Route::get('/delete/{id}', 'delete')->name('u.delete');
     });
 
-    Route::prefix('r')->controller(App\Http\Controllers\RolesController::class)->group(function() {
+    Route::prefix('r')
+        ->middleware(['role:Root|Admin'])
+        ->controller(App\Http\Controllers\RolesController::class)
+        ->group(function() {
         Route::get('/', 'index')->name('r.index');
+        Route::post('/saveall', 'saveAll')->name('r.saveall');
         Route::get('/{id}', 'edit')->name('r.edit');
         Route::post('/save/{id}', 'save')->name('r.save');
+        Route::get('/delete/{id}', 'delete')->name('r.delete');
     });
 
     Route::prefix('p')->controller(App\Http\Controllers\ProfileController::class)->group(function() {

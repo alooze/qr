@@ -10,6 +10,37 @@ class RolesController extends Controller
 {
     public function index()
     {
+        $roles = Role::get();
+        $users = User::with('roles')->get();
+
+        return view('admin.roles', compact('roles', 'users'));
+    }
+
+    public function saveAll(Request $request)
+    {
+        // dd($request->all());
+        if (!$request->roles) {
+            abort(403);
+        }
+
+        $roles = Role::get();
+
+        foreach ($request->roles as $uId => $rNameAr) {
+            $u = User::findOrFail($uId);
+            foreach ($roles as $r) {
+                if (!in_array($r->name, $rNameAr)) {
+                    $u->removeRole($r);
+                } elseif (!$u->hasRole($r)) {
+                    $u->assignRole($r);
+                }
+            }
+        }
+
+        return back()->with('status', 'Роли обновлены');
+    }
+
+    public function index1()
+    {
         // $roles = Role::get();
         // build the user-selector dropdown array for the view
         $select = new User;
@@ -30,7 +61,7 @@ class RolesController extends Controller
             ->with('roles')
             ->get();
 
-        return view('admin.roles',
+        return view('admin.roles1',
             [
                 'roles' => $roles,
                 'users' => $users->prepend($select),
@@ -40,6 +71,11 @@ class RolesController extends Controller
             ]);
 
         // return view('admin.roles', compact('roles'));
+    }
+
+    public function add()
+    {
+        // 
     }
 
     public function edit(Request $request, $id)
