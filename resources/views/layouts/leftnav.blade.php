@@ -12,10 +12,11 @@
             Действия
         </p>
         <ul class="menu-list">
-            <li><a>Payments</a></li>
-            <li><a>Transfers</a></li>
-            <li><a>Balance</a></li>
-            <li><a>Reports</a></li>
+            @hasanyrole('Root|Admin|Writer')
+            <li><a class="navbar-item {{ request()->routeIs('a.w.form') ? 'is-active' : '' }}" href="{{ route('a.w.form') }}">
+                Загрузить
+            </a></li>
+            @endhasanyrole
         </ul>
 
         @hasanyrole('Root|Admin')

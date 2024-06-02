@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Ulist;
 use Spatie\Permission\Models\Role;
 
 class IndexController extends Controller
@@ -18,7 +19,7 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        // $request->user()
-        return view('admin.index');
+        $lists = Ulist::get();
+        return view('admin.index', compact('lists'));
     }
 }

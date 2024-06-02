@@ -16,32 +16,22 @@
 @endsection
 
 @section('info')
-<!-- <section class="info-tiles">
+<section class="info-tiles">
     <div class="tile is-ancestor has-text-centered">
+        @foreach($lists as $l)
         <div class="tile is-parent">
             <article class="tile is-child box">
-                <p class="title">439k</p>
-                <p class="subtitle">Users</p>
+                @can('read data')
+                <a href="{{ route('a.l.view', $l->id) }}">
+                @endcan
+                <p class="title">{{ $l->title }}</p>
+                <p class="subtitle">{{ $l->comment }}</p>
+                @can('read data')
+                </a>
+                @endcan
             </article>
         </div>
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                <p class="title">59k</p>
-                <p class="subtitle">Products</p>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                <p class="title">3.4k</p>
-                <p class="subtitle">Open Orders</p>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                <p class="title">19</p>
-                <p class="subtitle">Exceptions</p>
-            </article>
-        </div>
+        @endforeach
     </div>
-</section> -->
+</section>
 @endsection

@@ -18,7 +18,8 @@ Route::group([
     'middleware' => ['auth']
 ],  function() {
 
-    Route::controller(App\Http\Controllers\IndexController::class)->group(function() {
+    Route::controller(App\Http\Controllers\IndexController::class)
+    ->group(function() {
         Route::get('/', 'index')->name('i.index');
     });
 
@@ -46,13 +47,32 @@ Route::group([
         Route::get('/delete/{id}', 'delete')->name('r.delete');
     });
 
-    Route::prefix('p')->controller(App\Http\Controllers\ProfileController::class)->group(function() {
+    Route::prefix('p')
+    ->controller(App\Http\Controllers\ProfileController::class)
+    ->group(function() {
         Route::get('/', 'index')->name('p.index');
         Route::post('/save', 'save')->name('p.save');
     });
 
-    // Event management
-    // Logs
+    // Write
+    Route::prefix('w')
+        ->middleware(['role:Writer|Admin|Root'])
+        ->controller(App\Http\Controllers\WriteController::class)
+        ->group(function() {
+            Route::get('/', 'form')->name('w.form');
+            Route::post('/create', 'create')->name('w.create');
+    });
+    // Lists
+    Route::prefix('l')
+        ->middleware(['role:Reader|Admin|Root'])
+        ->controller(App\Http\Controllers\ReadController::class)
+        ->group(function() {
+            Route::get('/{id}', 'view')->name('l.view');
+            Route::get('/all/{id}', 'all')->name('l.all');
+            Route::post('/search/{id?}', 'search')->name('l.search');
+            Route::get('/edit/{id}', 'edit')->name('l.edit');
+    });
+    
     // Process events
 });
 

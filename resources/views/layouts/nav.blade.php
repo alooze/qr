@@ -26,6 +26,20 @@
                     </a>
                     @endhasanyrole
 
+                    @hasanyrole('Root|Admin|Writer')
+                    <a class="navbar-item" href="{{ route('a.w.form') }}">
+                        Загрузить
+                    </a>
+                    @endhasanyrole
+
+                    @hasanyrole('Root|Admin|Reader')
+                    <!-- <a class="navbar-item" href="{{-- route('a.w.form') --}}">
+                        Загрузить
+                    </a> -->
+                    @endhasanyrole
+
+
+
                 </div>
             </div>
 
