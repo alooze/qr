@@ -27,7 +27,11 @@
             <tr>
                 @foreach($data as $col)
                 <td>
-                    {{ $col }}
+                    {{ strlen($col) > 200 ? transform($col, function($s) {
+                        $ar = explode(' ', substr($s, 0, 80));
+                        array_pop($ar);
+                        return implode(' ', $ar) . '...';
+                    }) : $col }}
                 </td>
                 @endforeach
             </tr>

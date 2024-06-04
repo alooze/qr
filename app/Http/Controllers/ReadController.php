@@ -8,6 +8,11 @@ use App\Models\UlistLine;
 
 class ReadController extends Controller
 {
+    public function index()
+    {
+        return redirect()->route('a.i.index');
+    }
+
     public function view($id)
     {
         $uList = Ulist::findOrFail($id);
@@ -54,10 +59,11 @@ class ReadController extends Controller
             $linesAll = UlistLine::where('lex_data', 'like', '%' . $str . '%')
                         ->get();
             foreach ($linesAll as $l) {
-                $lines[$l->ulist_id] = $l;
+                $lines[$l->ulist_id][] = $l;
             }
-
-            $uList = Ulist::whereIn('id', array_keys($lines));
+// dd($lines);
+            $uList = Ulist::whereIn('id', array_keys($lines))->get();
+            // dd($uList);
         }
         
         if ($request->full) {

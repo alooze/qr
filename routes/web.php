@@ -67,6 +67,7 @@ Route::group([
         ->middleware(['role:Reader|Admin|Root'])
         ->controller(App\Http\Controllers\ReadController::class)
         ->group(function() {
+            Route::get('/', 'index')->name('l.index');
             Route::get('/{id}', 'view')->name('l.view');
             Route::get('/all/{id}', 'all')->name('l.all');
             Route::post('/search/{id?}', 'search')->name('l.search');
