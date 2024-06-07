@@ -17,6 +17,12 @@
                 Загрузить
             </a></li>
             @endhasanyrole
+
+            @hasanyrole('Root|Admin|Reader|Writer')
+            <li><a class="navbar-item {{ request()->routeIs('a.i.people') ? 'is-active' : '' }}" href="{{ route('a.i.people') }}">
+                Записи
+            </a>
+            @endhasanyrole
         </ul>
 
         @hasanyrole('Root|Admin')

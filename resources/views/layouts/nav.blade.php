@@ -32,10 +32,10 @@
                     </a>
                     @endhasanyrole
 
-                    @hasanyrole('Root|Admin|Reader')
-                    <!-- <a class="navbar-item" href="{{-- route('a.w.form') --}}">
-                        Загрузить
-                    </a> -->
+                    @hasanyrole('Root|Admin|Reader|Writer')
+                    <a class="navbar-item" href="{{ route('a.i.people') }}">
+                        Записи
+                    </a>
                     @endhasanyrole
 
 

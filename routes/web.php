@@ -21,6 +21,11 @@ Route::group([
     Route::controller(App\Http\Controllers\IndexController::class)
     ->group(function() {
         Route::get('/', 'index')->name('i.index');
+        Route::get('/people', 'people')->name('i.people');
+        Route::get('/edit/{id}', 'edit')->name('i.edit');
+        Route::post('/search', 'search')->name('i.search');
+        Route::post('/save/{id}', 'save')->name('i.save');
+        Route::get('/export/{str?}', 'export')->name('i.export');
     });
 
     // Users management
